@@ -10,7 +10,7 @@ for _ in range(10):
 
     for i in range(100):
         for j in range(100):
-            cnt = 0
+            cnt = max_cnt
             while j+cnt <= 100:
                 if str_list[i][j:j+cnt] == str_list[i][j:j+cnt][::-1] and max_cnt < cnt:
                     max_cnt = cnt
