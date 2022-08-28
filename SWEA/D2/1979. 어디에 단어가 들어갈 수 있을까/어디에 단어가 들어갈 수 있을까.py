@@ -1,26 +1,26 @@
-T = int(input())
+def chk(x, y, rc):
+    global result
+    if maps[x][y] == '1':
+        rc += 1
+        if rc == K:
+            result += 1
+        elif rc == K + 1:
+            result -= 1
+    else:
+        rc = 0    
+    return rc
 
-for tese_case in range(1,T+1):
-    puzzle_len, word_len = map(int, input().split())
-    puzzle_map = [list(map(int, input().split())) for _ in range(puzzle_len)]
-    correct_count = 0
-    row_len = 0
-    col_len = [0]*puzzle_len
 
-    for i in range(puzzle_len):
-        row_len = 0
-        for j in range(puzzle_len):
-            row_len += puzzle_map[i][j]
-            col_len[j] += puzzle_map[i][j]
+for tc in range(1, int(input())+1):
+    N, K = map(int, input().split())
+    maps = [input().split() for _ in range(N)]
+    result = 0
 
-            if j == puzzle_len-1 or puzzle_map[i][j+1] == 0:
-                if row_len == word_len:
-                    correct_count += 1
-                row_len = 0
+    for i in range(N):
+        row = 0
+        col = 0
+        for j in range(N):
+            row = chk(i, j, row)
+            col = chk(j, i, col)
 
-            if i == puzzle_len-1 or puzzle_map[i+1][j] == 0:
-                if col_len[j] == word_len:
-                    correct_count += 1
-                col_len[j] = 0
-
-    print(f'#{tese_case} {correct_count}')
+    print(f'#{tc} {result}')
