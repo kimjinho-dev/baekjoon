@@ -1,15 +1,12 @@
-T = int(input())
-for test_case in range(1, T + 1):
-    test_case_value = input()
-    scores_list = list(map(int, input().split()))
-    scores_list_set = set(scores_list)
-    max_count = 0
-    max_score = 0
-    while len(scores_list_set):
-        score = scores_list_set.pop()
-        if max_count < scores_list.count(score) or (
-            max_count == scores_list.count(score) and max_score < score
-        ):
-            max_count = scores_list.count(score)
-            max_score = score
-    print(f'#{test_case} {max_score}')
+for _ in range(int(input())):
+    test_case = int(input())
+    nums = list(map(int,input().split()))
+    nums_set = set(nums)
+    max_cnt = 0
+    max_num = 0
+    for num in nums_set:
+        cnt = nums.count(num)
+        if max_cnt < cnt:
+            max_cnt = cnt
+            max_num = num
+    print(f'#{test_case} {max_num}')
