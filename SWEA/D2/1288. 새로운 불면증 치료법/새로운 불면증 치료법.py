@@ -1,9 +1,8 @@
 for test_case in range(1,int(input())+1):
     N = int(input())
     num_set = set()
-    i = 1
+    i = 0
     while len(num_set) != 10:
-        words = str(N * i)
-        num_set.update(words)
         i += 1
-    print(f'#{test_case} {int(words)}')
+        num_set.update(str(N * i))
+    print(f'#{test_case} {N * i}')
