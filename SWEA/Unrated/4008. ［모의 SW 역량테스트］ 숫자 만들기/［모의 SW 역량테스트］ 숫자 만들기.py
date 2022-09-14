@@ -1,6 +1,3 @@
-import math
-
-
 def sol(total, idx, ops):
     if idx == N:
         global max_cal, min_cal
@@ -19,8 +16,7 @@ def sol(total, idx, ops):
             elif op_idx == 2:
                 next_total = total * nums[idx]
             else:
-                next_total = total / nums[idx]
-                next_total = math.trunc(next_total)
+                next_total = int(total / nums[idx])
             ops[op_idx] -= 1
             sol(next_total, idx + 1, ops)
             ops[op_idx] += 1
