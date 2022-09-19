@@ -17,8 +17,4 @@ for idx in range(N-1):
     else:
         decrease_length += 1
         increase_length += 1
-if result < increase_length:
-    result = increase_length
-if result < decrease_length:
-    result = decrease_length
-print(result)
+print(max(result,increase_length,decrease_length))
