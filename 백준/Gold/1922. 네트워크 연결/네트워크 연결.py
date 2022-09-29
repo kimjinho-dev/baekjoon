@@ -21,6 +21,7 @@ M = int(input())
 graph = []
 par = [0]
 result = 0
+cnt = 0
 make_set()
 for _ in range(M):
     a, b, c = map(int,input().split())
@@ -33,7 +34,9 @@ for g in graph:
     if root_a != root_b:
         union_set(root_a,root_b)
         result += c
-    else:
-        pass
+        cnt += 1
+        if cnt == N-1:
+            break
+        
 
 print(result)
