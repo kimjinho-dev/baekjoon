@@ -1,4 +1,6 @@
+import sys
 from heapq import heappush, heappop
+input = sys.stdin.readline
 
 def dijkstra(start,graph,distance):        # 기본 다익스트라 코드
     distance[start] = 0
