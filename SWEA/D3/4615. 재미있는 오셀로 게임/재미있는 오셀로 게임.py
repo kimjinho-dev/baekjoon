@@ -1,50 +1,45 @@
-def check(i,j,c):
-    for di,dj in [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]:
-        l = []
-        is_end = False
-        dx = i + di
-        dy = j + dj
-        if 0 <= dx < N and 0 <= dy < N and maps[dx][dy] and maps[dx][dy] != c:
-            l.append((dx,dy))
-            while not is_end:
-                dx += di
-                dy += dj
-                if 0 <= dx < N and 0 <= dy < N:
-                    if maps[dx][dy] == 0:
-                        is_end = True
-                    elif maps[dx][dy] != c:
-                        l.append((dx, dy))
-                    elif maps[dx][dy] == c:
-                        for c_i,c_j in l:
-                            maps[c_i][c_j] = c
-                        is_end = True                    
-                else:
-                    is_end = True
+def second_chk(dx,dy,di,dj,color):
+    temp = [(dx,dy)]
+    while 0 <= dx+di < board_size and 0 <= dy+dj < board_size:
+        dx += di
+        dy += dj
+        if board[dx][dy] == 0:
+            return []
+        elif board[dx][dy] != color:
+            temp.append((dx, dy))
+        else:
+            return temp
+    return []
+
+def first_chk(x,y,color):
+    for di,dj in [[-1,-1],[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1]]:
+        dx = x + di
+        dy = y + dj
+        if 0 <= dx < board_size and 0 <= dy < board_size and board[dx][dy] and board[dx][dy] != color:
+            change_pos = second_chk(dx, dy, di, dj, color)
+            for dx,dy in change_pos:
+                board[dx][dy] = color
+
 
 for test_case in range(1,int(input())+1):
-    # 1. 입력받고 맵 초기화
-    N, M = map(int, input().split())
-    maps = [[0]*N for _ in range(N)]
-    # 2. 맵 가운데 4자리 할당
-    maps[N//2-1][N//2-1] = 2
-    maps[N//2-1][N//2] = 1
-    maps[N//2][N//2-1] = 1
-    maps[N//2][N//2] = 2
+    board_size, round_cnt = map(int,input().split())
+    board = [[0] * board_size for _ in range(board_size)]
+    board[board_size//2 - 1][board_size//2 - 1] = 2
+    board[board_size // 2 - 1][board_size // 2] = 1
+    board[board_size // 2][board_size // 2 - 1] = 1
+    board[board_size // 2][board_size // 2] = 2
 
-    # 3. M만큼 입력받으면서 돌을 두고, 뒤집기 판정
-    for _ in range(M):
-        y, x, color = map(int, input().split())
-        maps[x-1][y-1] = color
-        check(x-1,y-1,color)
+    for _ in range(round_cnt):
+        x, y, color = map(int,input().split())
+        board[x-1][y-1] = color
+        first_chk(x-1,y-1,color)
 
-    # 4. 흑돌 백돌 개수 카운팅(반복문으로 탐색)
-    white = 0
-    black = 0
-    for i in range(N):
-        for j in range(N):
-            if maps[i][j] == 1:
+    black, white = 0, 0
+    for i in range(board_size):
+        for j in range(board_size):
+            if board[i][j] == 1:
                 black += 1
-            elif maps[i][j] == 2:
+            elif board[i][j] == 2:
                 white += 1
 
     print(f'#{test_case} {black} {white}')
